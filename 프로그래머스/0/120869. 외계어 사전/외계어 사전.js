@@ -1,3 +1,4 @@
 function solution(spell, dic) {
-  return dic.some((v) => new Set([...v]).size === spell.length && new Set([...v, ...spell]).size === spell.length) ? 1 : 2;
+  let sort_spell = spell.sort().toString();
+  return dic.some((v) => [...v].sort().toString() === sort_spell) ? 1 : 2;
 }
