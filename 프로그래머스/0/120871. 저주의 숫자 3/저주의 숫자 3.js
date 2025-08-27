@@ -1,9 +1,13 @@
 function solution(n) {
-  let count = 0;
-  for (let i = 1; i <= n; i++) {
-    while (!((i + count) % 3) || (i + count).toString().includes(3)) {
-      count++;
+  let arr = [0];
+  let num = 0;
+
+  while (arr.length <= n) {
+    num++;
+    if (num % 3 && !num.toString().includes(3)) {
+      arr.push(num);
     }
   }
-  return n + count;
+
+  return arr[n];
 }
