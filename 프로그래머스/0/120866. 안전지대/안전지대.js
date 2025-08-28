@@ -1,5 +1,8 @@
-function search(x, y, visited) {
-  const move = [
+function solution(board) {
+  let danger = new Set();
+  const n = board.length;
+  const d = [
+    [0, 0],
     [1, 0],
     [-1, 0],
     [0, 1],
@@ -10,28 +13,18 @@ function search(x, y, visited) {
     [-1, -1],
   ];
 
-  for (const [dx, dy] of move) {
-    let nx = x + dx;
-    let ny = y + dy;
-    if (0 <= nx && nx < visited.length && 0 <= ny && ny < visited.length && !visited[nx][ny]) {
-      visited[nx][ny] = 1;
-    }
-  }
-}
-
-function solution(board) {
-  let visited = JSON.parse(JSON.stringify(board));
-
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length; j++) {
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
       if (board[i][j]) {
-        search(i, j, visited);
+        d.forEach(([di, dj]) => {
+          let [ni, nj] = [i + di, j + dj];
+          if (0 <= ni && ni < n && 0 <= nj && nj < n) {
+            danger.add(`(${ni}, ${nj})`);
+          }
+        });
       }
     }
   }
 
-  return visited
-    .map((v) => v.join(""))
-    .join("")
-    .replaceAll("1", "").length;
+  return n * n - danger.size;
 }
