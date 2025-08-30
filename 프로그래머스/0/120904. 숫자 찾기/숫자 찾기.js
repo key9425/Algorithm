@@ -1,3 +1,3 @@
 function solution(num, k) {
-  return ".".concat(num.toString()).indexOf(k);
+  return ("." + num).indexOf(k);
 }
