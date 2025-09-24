@@ -11,6 +11,5 @@ rl.on("line", function (line) {
 }).on("close", function () {
   str = input[0];
   n = Number(input[1]);
-  const answer = Array.from({ length: n }, () => str).join("");
-  console.log(answer);
+  console.log(str.repeat(n));
 });
