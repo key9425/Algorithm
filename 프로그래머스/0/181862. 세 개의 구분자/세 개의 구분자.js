@@ -1,4 +1,3 @@
 function solution(myStr) {
-  const answer = myStr.split(/[abc]/).filter((str) => str !== "");
-  return answer.length === 0 ? ["EMPTY"] : answer;
+  return myStr.match(/[^abc]+/g) || ["EMPTY"];
 }
