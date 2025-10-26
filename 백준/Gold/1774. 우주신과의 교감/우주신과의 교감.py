@@ -1,23 +1,28 @@
 import sys
 import math
-
 input = sys.stdin.readline
 
-
 def find_parent(v):
-    if parents[v] == v:
+    if parents[v] < 0:
         return v
     parents[v] = find_parent(parents[v])
     return parents[v]
 
-
 def union(v1, v2):
     p1 = find_parent(v1)
     p2 = find_parent(v2)
-    if p1 < p2:
+
+    if p1 == p2:
+        return False
+
+    if parents[p1] < parents[p2]:
+        parents[p1] += parents[p2]
         parents[p2] = p1
     else:
+        parents[p2] += parents[p1]
         parents[p1] = p2
+
+    return True
 
 
 N, M = map(int, input().split())
@@ -27,7 +32,7 @@ for i in range(1, N + 1):
     x, y = map(int, input().split())
     L[i] = (x, y)
 
-parents = [i for i in range(N + 1)]
+parents = [-1] * (N + 1)
 for _ in range(M):
     v1, v2 = map(int, input().split())
     union(v1, v2)
@@ -41,8 +46,7 @@ for i in range(1, N):
 adj.sort()
 cost = 0
 for d, i, j in adj:
-    if find_parent(i) != find_parent(j):
+    if union(i, j):
         cost += d
-        union(i, j)
 
 print(f"{cost:.2f}")
